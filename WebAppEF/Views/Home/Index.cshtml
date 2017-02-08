@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Usuario</h2>
+<a href="~/home/editar">Nuevo Registro</a>
+</br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Nombre</td>
+            <td>Apellido</td>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var usuario in Model)
+        {
+            <tr>
+                <td>@usuario.Nombre</td>
+                <td>@usuario.Apellido</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label">Nombre</label>
+        <input type="text" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Apellido</label>
+        <input type="text" class="form-control" />
+    </div>
+</div>
+<div>
+    <input id="btnReolad" type="button" class="btn btn-success" value="Cargar"/>
+    <input type="button" class="btn btn-danger" value="Cancelar"/>
+</div>
+
+@section jsFiles
+{
+    <script type="text/javascript">
+        $(function() {
+
+            function loadEditUsuario() {
+                $.ajax({
+                    type: "POST",
+                    url: "EditarJson",
+                    data: {
+                        "Nombre": "A1",
+                        "Apellido": "A2",
+                        "Id": 11
+                    },
+                    dataType: "Json",
+                    success: function() {
+                        console.log("exuito");
+                    },
+                    error: function() {
+                        alert("Error");
+                    },
+                    complete: function() {
+                        alert("complete");
+                    }
+
+                });
+            }
+
+            $("#btnReolad").click(
+                function(event) {
+                    loadEditUsuario();
+                });
+        })
+    </script>
+}
